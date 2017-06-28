@@ -1,0 +1,11 @@
+--- etc/httpd/conf/httpd.conf	2017-06-28 20:06:58.366115440 +0000
++++ etc/httpd/conf/httpd.conf	2017-06-28 20:06:32.049447775 +0000
+@@ -269,7 +269,7 @@
+     # It can be "All", "None", or any combination of the keywords:
+     #   AllowOverride FileInfo AuthConfig Limit
+     #
+-    AllowOverride None
++    AllowOverride All
+ 
+     #
+     # Controls who can get stuff from this server.
