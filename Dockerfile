@@ -18,6 +18,25 @@ RUN pacman -Sy --noconfirm patch \
     && rm /01-htaccess.patch \
     && cleanup-image
 
+# Add support for libsodium
+ADD 02-makefile.patch /02-makefile.patch
+RUN pacman -Sy --noconfirm --needed base-devel libsodium \
+    && cd /tmp \
+    && curl -LO https://pecl.php.net/get/libsodium-1.0.6.tgz \
+    && echo "987df388210b498f3acf8ada368e56bece5b2b5ffe64564ecfffc27f17f1242f libsodium-1.0.6.tgz" | sha256sum -c - \
+    && tar -xvf libsodium-1.0.6.tgz \
+    && cd libsodium-1.0.6 \
+    && phpize \
+    && ./configure \
+    && patch -p0 < /02-makefile.patch \
+    && make test install \
+    && echo "extension=libsodium.so" > /etc/php/conf.d/libsodium.ini \
+    && rm /02-makefile.patch \
+    && pacman -Rcs --noconfirm autoconf automake bison fakeroot file flex gc \
+       groff guile libatomic_ops libmpc libtool m4 make patch pkg-config \
+       sudo texinfo \
+    && cleanup-image
+
 # Preconfigure DB
 ADD db.php /srv/http/inc/db.php
 

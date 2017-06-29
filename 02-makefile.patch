@@ -1,0 +1,11 @@
+--- Makefile	2017-06-29 18:39:49.108618027 +0000
++++ Makefile	2017-06-29 18:39:44.141951261 +0000
+@@ -112,7 +112,7 @@
+ 			else \
+ 				(cd $(top_srcdir)/$$src && $(INSTALL_DATA) *.h $(INSTALL_ROOT)$(phpincludedir)/$$i; \
+ 				cd $(top_builddir)/$$src && $(INSTALL_DATA) *.h $(INSTALL_ROOT)$(phpincludedir)/$$i) 2>/dev/null || true; \
+-			fi \
++			fi; \
+ 		done; \
+ 	fi
+ 
